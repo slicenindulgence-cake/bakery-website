@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slice n' Indulgence</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #FFFFFF;
+      color: #333;
+    }
+    header {
+      background: #ff6f61;
+      color: white;
+      padding: 20px 15px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.2rem;
+    }
+    /* Hero Slider */
+    .slider {
+      position: relative;
+      overflow: hidden;
+      max-height: 400px;
+    }
+    .slides {
+      display: flex;
+      transition: transform 0.8s ease-in-out;
+      width: 80%;
+    }
+    .slide {
+      width: 80%;
+      flex-shrink: 0;
+    }
+    .slide img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+    .slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      border-radius: 50%;
+    }
+    .prev { left: 15px; }
+    .next { right: 15px; }
+    nav {
+      background: #ff9671;
+      padding: 12px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 12px;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    section {
+      padding: 40px 20px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    h2 {
+      color: #ff6f61;
+      border-bottom: 3px solid #ff9671;
+      padding-bottom: 8px;
+      margin-bottom: 25px;
+      font-size: 1.5rem;
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .menu-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .menu-card:hover {
+      transform: translateY(-5px);
+    }
+    .menu-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .menu-info {
+      padding: 15px;
+    }
+    .menu-info h3 {
+      margin: 0;
+      color: #333;
+      font-size: 1.2rem;
+    }
+    .price {
+      font-weight: bold;
+      color: #ff6f61;
+      margin: 8px 0;
+    }
+    .quote {
+      font-style: italic;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .order-btn {
+      display: inline-block;
+      background: #25D366;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .order-btn:hover {
+      background: #20b955;
+    }
+    /* Customer Reviews Section */
+    #reviews h2 {
+      color: #ff6f61;
+      border-bottom: 3px solid #ff9671;
+      padding-bottom: 8px;
+      margin-bottom: 25px;
+      font-size: 1.5rem;
+    }
+    #reviews .menu-card {
+      background: #fff3e6;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      text-align: center;
+    }
+    #reviews .quote {
+      font-style: italic;
+      color: #555;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+    #reviews p strong {
+      color: #ff6f61;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #ff9671;
+      color: white;
+      margin-top: 80px;
+    }
+    /* Sticky WhatsApp Button */
+    .sticky-whatsapp {
+      position: fixed;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #25D366;
+      color: white;
+      padding: 14px 24px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 50px;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      z-index: 200;
+      transition: background 0.3s;
+    }
+    .sticky-whatsapp:hover {
+      background: #20b955;
+    }
+    /* Mobile tweaks */
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.8rem; }
+      nav a { font-size: 0.9rem; margin: 0 8px; }
+      .menu-info h3 { font-size: 1rem; }
+      .slide img { height: 250px; }
+      .sticky-whatsapp { font-size: 1rem; padding: 12px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Slice n' Indulgence</h1>
+    <p>Freshly baked happiness from home to your heart ❤️</p>
+  </header>
+
+  <!-- Hero Image Slider -->
+  <div class="slider">
+    <div class="slides" id="slides">
+      <div class="slide"><img src="images/slider/slide1.jpg" alt="Cake"></div>
+	<div class="slide"><img src="images/slider/slide2.jpg" alt="Brownie"></div>
+	<div class="slide"><img src="images/slider/slide3.jpg" alt="Cookies"></div>
+	<div class="slide"><img src="images/slider/slide4.jpg" alt="Bread"></div>
+
+    </div>
+    <button class="slider-btn prev" onclick="prevSlide()">❮</button>
+    <button class="slider-btn next" onclick="nextSlide()">❯</button>
+  </div>
+
+  <nav>
+    <a href="#cakes">Cakes</a>
+    <a href="#cookies">Cookies</a>
+    <a href="#brownies">Brownies</a>
+    <a href="#bread">Breads</a>
+  </nav>
+
+  <!-- Cakes Section -->
+  <section id="cakes">
+    <h2>🎂 Cakes</h2>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <img src="images/cakes/blueberry-cake.jpg" alt="Blueberry Cake">
+        <div class="menu-info">
+          <h3>Blueberry</h3>
+          <p class="price">₹650 | ₹1200 </p>
+          <p class="quote">“Soft & fluffy delight in every bite”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Blueberry Cake" class="order-btn">Order Now</a>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="images/cakes/chocolate-cake.jpg" alt="Chocolate Cake">
+        <div class="menu-info">
+          <h3>Chocolate Truffle</h3>
+          <p class="price">₹750 | ₹1300 </p>
+          <p class="quote">“Rich, gooey & loaded with chocolate”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Chocolate Truffle Cake" class="order-btn">Order Now</a>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="images/cakes/red-velvet.jpg" alt="Red Velvet Cake">
+        <div class="menu-info">
+          <h3>Red Velvet</h3>
+          <p class="price">₹600 | ₹1150</p>
+          <p class="quote">“A romantic classic with a creamy touch”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Red Velvet Cake" class="order-btn">Order Now</a>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="images/cakes/mango-cake.jpg" alt="Red Velvet Cake">
+        <div class="menu-info">
+          <h3>Mango</h3>
+          <p class="price">₹550 | ₹1000</p>
+          <p class="quote">“Happiness layered with mango magic.”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Mango Cake" class="order-btn">Order Now</a>
+        </div>
+      </div>
+
+      <div class="menu-card">
+        <img src="images/cakes/pineapple-cake.jpg" alt="Red Velvet Cake">
+        <div class="menu-info">
+          <h3>Pineapple</h3>
+          <p class="price">₹550 | ₹1000</p>
+          <p class="quote">“Baked with love and a splash of paradise”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Pineapple Cake" class="order-btn">Order Now</a>
+        </div>
+      </div>
+
+
+      <div class="menu-card">
+        <img src="images/cakes/strawberry-cake.jpg" alt="Fruit Cake">
+        <div class="menu-info">
+          <h3>Strawberry</h3>
+          <p class="price">₹550 | ₹1000</p>
+          <p class="quote">“Fresh, fruity, and full of love.”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Strawberry Cake" class="order-btn">Order Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cookies Section -->
+  <section id="cookies">
+    <h2>🍪 Cookies</h2>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <img src="https://source.unsplash.com/400x300/?choco-chip-cookies" alt="Choco Chip">
+        <div class="menu-info">
+          <h3>Choco Chip Cookies (6 pcs)</h3>
+          <p class="price">₹200</p>
+          <p class="quote">“Crispy edges, gooey chocolate hearts”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Choco Chip Cookies" class="order-btn">Order Now</a>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="https://source.unsplash.com/400x300/?butter-cookies" alt="Butter Cookies">
+        <div class="menu-info">
+          <h3>Butter Shortbread</h3>
+          <p class="price">₹180</p>
+          <p class="quote">“Melt-in-your-mouth buttery bliss”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Butter Shortbread" class="order-btn">Order Now</a>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="https://source.unsplash.com/400x300/?oatmeal-cookies" alt="Oatmeal Cookies">
+        <div class="menu-info">
+          <h3>Oatmeal Raisin</h3>
+          <p class="price">₹220</p>
+          <p class="quote">“Wholesome goodness with a chewy twist”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Oatmeal Raisin Cookies" class="order-btn">Order Now</a>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="https://source.unsplash.com/400x300/?gingerbread" alt="Gingerbread">
+        <div class="menu-info">
+          <h3>Gingerbread Cookies</h3>
+          <p class="price">₹250</p>
+          <p class="quote">“Spiced warmth in every crunchy bite”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Gingerbread Cookies" class="order-btn">Order Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Brownies Section -->
+  <section id="brownies">
+    <h2>🍫 Brownies</h2>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <img src="https://source.unsplash.com/400x300/?chocolate-brownie" alt="Chocolate Brownie">
+        <div class="menu-info">
+          <h3>Classic Chocolate Brownie</h3>
+          <p class="price">₹120</p>
+          <p class="quote">“Rich, fudgy, and irresistibly chocolatey”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Classic Chocolate Brownie" class="order-btn">Order Now</a>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="https://source.unsplash.com/400x300/?walnut-brownie" alt="Walnut Brownie">
+        <div class="menu-info">
+          <h3>Walnut Brownie</h3>
+          <p class="price">₹150</p>
+          <p class="quote">“Crunchy walnuts, fudgy delight”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Walnut Brownie" class="order-btn">Order Now</a>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="https://source.unsplash.com/400x300/?cheesecake-brownie" alt="Cheesecake Brownie">
+        <div class="menu-info">
+          <h3>Cheesecake Brownie</h3>
+          <p class="price">₹180</p>
+          <p class="quote">“Decadent cheesecake swirled into brownie bliss”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Cheesecake Brownie" class="order-btn">Order Now</a>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="https://source.unsplash.com/400x300/?fudge-brownie" alt="Fudge Brownie">
+        <div class="menu-info">
+          <h3>Double Fudge Brownie</h3>
+          <p class="price">₹200</p>
+          <p class="quote">“Extra chocolate, extra happiness”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Double Fudge Brownie" class="order-btn">Order Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breads Section -->
+  <section id="bread">
+    <h2>🍞 Breads</h2>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <img src="https://source.unsplash.com/400x300/?garlic-bread" alt="Garlic Bread">
+        <div class="menu-info">
+          <h3>Garlic Bread Loaf</h3>
+          <p class="price">₹100</p>
+          <p class="quote">“Buttery, garlicky & oven-fresh”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Garlic Bread Loaf" class="order-btn">Order Now</a>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="https://source.unsplash.com/400x300/?whole-wheat-bread" alt="Whole Wheat">
+        <div class="menu-info">
+          <h3>Whole Wheat Bread</h3>
+          <p class="price">₹90</p>
+          <p class="quote">“Healthy, hearty & wholesome”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Whole Wheat Bread" class="order-btn">Order Now</a>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="https://source.unsplash.com/400x300/?banana-bread" alt="Banana Bread">
+        <div class="menu-info">
+          <h3>Banana Bread</h3>
+          <p class="price">₹150</p>
+          <p class="quote">“Moist, sweet & full of banana love”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Banana Bread" class="order-btn">Order Now</a>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img src="https://source.unsplash.com/400x300/?multigrain-bread" alt="Multigrain Bread">
+        <div class="menu-info">
+          <h3>Multigrain Bread</h3>
+          <p class="price">₹120</p>
+          <p class="quote">“Packed with grains, full of energy”</p>
+          <a href="https://wa.me/919150313828?text=I want to order Multigrain Bread" class="order-btn">Order Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Customer Reviews Section -->
+  <section id="reviews">
+    <h2>⭐ Customer Reviews</h2>
+    <div class="menu-grid">
+      <div class="menu-card">
+        <div class="menu-info">
+          <p class="quote">“The Chocolate Truffle Cake was heavenly! Moist and rich.”</p>
+          <p><strong>- Ananya S.</strong></p>
+          <p>⭐⭐⭐⭐⭐</p>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-info">
+          <p class="quote">“Loved the Banana Bread! Perfectly sweet and soft.”</p>
+          <p><strong>- Rahul P.</strong></p>
+          <p>⭐⭐⭐⭐⭐</p>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-info">
+          <p class="quote">“Strawberry Mousse Pastry was so light and delicious.”</p>
+          <p><strong>- Priya M.</strong></p>
+          <p>⭐⭐⭐⭐⭐</p>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-info">
+          <p class="quote">“Garlic Bread Loaf was fresh and full of flavor. Highly recommend!”</p>
+          <p><strong>- Arjun K.</strong></p>
+          <p>⭐⭐⭐⭐⭐</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>📍 Home-based in Your City | 📞 Call/WhatsApp: +91-9150313828</p>
+    <p>&copy; 2025 Slice n' Indulgence. All Rights Reserved.</p>
+  </footer>
+
+  <!-- Sticky WhatsApp button -->
+  <a href="https://wa.me/919150313828?text=Hello! I’d like to place an order 🍰" class="sticky-whatsapp">💬 Order on WhatsApp</a>
+
+  <script>
+    let index = 0;
+    const slides = document.getElementById("slides");
+    const totalSlides = slides.children.length;
+
+    function showSlide(i) {
+      index = (i + totalSlides) % totalSlides;
+      slides.style.transform = `translateX(${-index * 100}%)`;
+    }
+
+    function nextSlide() { showSlide(index + 1); }
+    function prevSlide() { showSlide(index - 1); }
+
+    setInterval(nextSlide, 4000); // Auto-slide every 4 seconds
+  </script>
+</body>
+</html>
